@@ -1,18 +1,12 @@
 name: fetch
 on:
   workflow_dispatch:
-  push:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v4
       - run: curl -L --fail --silent https://clinicaltrials.gov/api/v2/studies/NCT04779307 > nct04779307.json
-      - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add nct04779307.json
-          git commit -m 'fetch study json' || exit 0
-          git push
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nct04779307
+          path: nct04779307.json
