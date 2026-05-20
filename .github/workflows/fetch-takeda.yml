@@ -1,0 +1,12 @@
+name: fetch-takeda
+on:
+  workflow_dispatch:
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -L --fail --silent https://clinicaltrials.takeda.com/study-detail/60423c99eb9d7e001f5bc623 > takeda.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: takeda
+          path: takeda.html
